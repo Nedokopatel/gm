@@ -1,0 +1,111 @@
+﻿<Page x:Class="GlazkiSave.AgentListPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GlazkiSave"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AgentListPage">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="64*"></RowDefinition>
+            <RowDefinition Height="289*"></RowDefinition>
+            <RowDefinition Height="39*"/>
+            <RowDefinition Height="58*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBox x:Name="SearchQueryText" Grid.Row="0" Grid.Column="0" Text="" FontSize="20" VerticalContentAlignment="Center" Margin="10" BorderBrush="Black" TextChanged="SearchQueryText_TextChanged"></TextBox>
+        <ComboBox Name="SortComboBox" Grid.Column="1" Grid.Row="0" BorderBrush="Black" VerticalContentAlignment="Center" Margin="10" DropDownClosed="SortComboBox_DropDownClosed">
+            <ComboBoxItem IsSelected="True">Наименование (по возр)</ComboBoxItem>
+            <ComboBoxItem>Наименование (по убыв)</ComboBoxItem>
+            <ComboBoxItem>Размер скидки (по возр)</ComboBoxItem>
+            <ComboBoxItem>Размер скидки (по убыв)</ComboBoxItem>
+            <ComboBoxItem>Приоритет агента (по возр)</ComboBoxItem>
+            <ComboBoxItem>Приоритет агента (по убыв)</ComboBoxItem>
+        </ComboBox>
+        <ComboBox Name="FilterComboBox" Grid.Column="2" Grid.Row="0" BorderBrush="Black" VerticalContentAlignment="Center" Margin="10" DropDownClosed="FilterComboBox_DropDownClosed">
+            <ComboBoxItem IsSelected="True">Все типы</ComboBoxItem>
+        </ComboBox>
+        <ListView Name="AgentsList" Grid.Row="1" Grid.ColumnSpan="3" SelectionChanged="AgentsList_SelectionChanged">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Width="750">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                            <ColumnDefinition Width="7*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="1" Grid.Column="1" Margin="3" FontSize="20">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat=" {0} | {1}">
+                                    <Binding Path="Тип_агента"></Binding>
+                                    <Binding Path="Наименование_агента"></Binding>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                        <TextBlock Grid.Row="2" Grid.Column="1" Margin="3" FontSize="20">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat=" {0} продаж за год">
+                                    <Binding Path="Количество_продаж"  TargetNullValue="0"></Binding>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                        <TextBlock Grid.Row="4" Grid.Column="1" Margin="3" FontSize="20">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="Приоритет: {0}">
+                                    <Binding Path="Приоритет"></Binding>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                        <TextBlock Text="{Binding Номер_телефона}" Grid.Row="3" Grid.Column="1" Margin="3"></TextBlock>
+                        <TextBlock Grid.Row="2" Grid.RowSpan="2" Grid.Column="3" Margin="3" FontSize="22">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat=" {0} %">
+                                    <Binding Path="Скидка_агента" TargetNullValue="0">
+                                    </Binding>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                        <Image Grid.RowSpan="6" Width="100">
+                            <Image.Source>
+                                <Binding Path="LogoAgent">
+                                    <Binding.TargetNullValue>
+                                        <ImageSource>Resources/picture.png</ImageSource>
+                                    </Binding.TargetNullValue>
+                                </Binding>
+                            </Image.Source>
+                        </Image>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Button Name="BtnAdd" Content="Добавить" Click="BtnAdd_Click" Grid.Row="2" HorizontalAlignment="Left" Width="74" Margin="27,0,0,3"></Button>
+        <Button Name="BtnDelete" Click="BtnDelete_Click" Content="Удалить" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Right" Width="52" Margin="0,0,29,3"></Button>
+        <Button Content="Редактировать" Name="BtnEdit" Grid.Row="2" Grid.ColumnSpan="3" HorizontalAlignment="Center" Click="BtnEdit_Click" ></Button>
+        <Button x:Name="ChangePriorityBtn" Grid.Column="0" Grid.Row="3" Width="156" Margin="10,20,0,15" BorderBrush="Black" Background="White" HorizontalAlignment="Left" Click="ChangePriorityBtn_Click" Visibility="Hidden" >Изменить приоритет на ...</Button>
+
+        <Button x:Name="PrevBtn" Grid.Column="2" Grid.Row="3" HorizontalContentAlignment="Left" Content="&lt;" Background="White" BorderThickness="0" Margin="33,22,152,18" Click="PrevBtn_Click"/>
+        <Button x:Name="NextBtn" Grid.Column="2" Grid.Row="3" HorizontalContentAlignment="Left" Content="&gt;" Background="White" BorderThickness="0" Margin="172,22,13,18" Click="NextBtn_Click"/>
+        <Button x:Name="FirstBtn" Grid.Column="2" Grid.Row="3" HorizontalContentAlignment="Left" Content="1" Background="White" BorderThickness="0" Margin="62,22,123,18" Click="NumberBtn_Click"/>
+        <Button x:Name="SecondBtn" Grid.Column="2" Grid.Row="3" HorizontalContentAlignment="Left" Content="2" Background="White" BorderThickness="0" Margin="92,22,92,18" Click="NumberBtn_Click"/>
+        <Button x:Name="ThirdBtn" Grid.Column="2" Grid.Row="3" HorizontalContentAlignment="Left" Content="3" Background="White" BorderThickness="0" Margin="119,22,66,18" Click="NumberBtn_Click"/>
+        <Button x:Name="FourBtn" Grid.Column="2" Grid.Row="3" HorizontalContentAlignment="Left" Content="4" Background="White" BorderThickness="0" Margin="145,22,40,18" Click="NumberBtn_Click"/>
+
+    </Grid>
+</Page>
+

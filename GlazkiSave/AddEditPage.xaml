@@ -1,0 +1,54 @@
+﻿<Page x:Class="GlazkiSave.AddEditPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GlazkiSave"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AddEditPage">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Тип Агента" Grid.Column="0" FontSize="15" FontFamily="Century Gothic" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        <TextBlock Text="Наименование Агента" Grid.Column="0" Grid.Row="1" FontSize="15" FontFamily="Century Gothic" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        <TextBlock Text="Приоритет" Grid.Column="0" Grid.Row="2" FontSize="15" FontFamily="Century Gothic" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        <TextBlock Text="Логотип" Grid.Column="0" Grid.Row="3" FontSize="15" FontFamily="Century Gothic" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        <TextBlock Text="Адрес" Grid.Column="0" Grid.Row="4" FontSize="15" FontFamily="Century Gothic" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        <TextBlock Text="ИНН" Grid.Column="0" Grid.Row="5" FontSize="15" FontFamily="Century Gothic" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        <TextBlock Text="КПП" Grid.Column="0" Grid.Row="6" FontSize="15" FontFamily="Century Gothic" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        <TextBlock Text="Директор" Grid.Column="0" Grid.Row="7" FontSize="15" FontFamily="Century Gothic" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        <TextBlock Text="Телефон" Grid.Column="0" Grid.Row="8" FontSize="15" FontFamily="Century Gothic" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        <TextBlock Text="Email" Grid.Column="0" Grid.Row="9" FontSize="15" FontFamily="Century Gothic" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+
+
+        <ComboBox SelectedItem="{Binding TypeAgent}" Name ="ComboType" Grid.Column="1" Height="35" Width="500"></ComboBox>
+        <TextBox Text="{Binding NameAgent}" Grid.Column="1" Grid.Row="1" Height="35" Width="500"></TextBox>
+        <TextBox Text="{Binding Priority}" Grid.Column="1" Grid.Row="2" Height="35" Width="500"></TextBox>
+        <TextBox Text="{Binding LogoAgent}" Grid.Column="1" Grid.Row="3" Height="35" Width="500"></TextBox>
+        <TextBox Text="{Binding Address}" Grid.Column="1" Grid.Row="4" Height="35" Width="500"></TextBox>
+        <TextBox Text="{Binding TIN}" Grid.Column="1" Grid.Row="5" Height="35" Width="500"></TextBox>
+        <TextBox Text="{Binding TRRC}" Grid.Column="1" Grid.Row="6" Height="35" Width="500"></TextBox>
+        <TextBox Text="{Binding Director}" Grid.Column="1" Grid.Row="7" Height="35" Width="500"></TextBox>
+        <TextBox Text="{Binding Phone}" Grid.Column="1" Grid.Row="8" Height="35" Width="500"></TextBox>
+        <TextBox Text="{Binding Email}" Grid.Column="1" Grid.Row="9" Height="35" Width="500"></TextBox>
+        <Button Content="Сохранить" Grid.Row="10" Grid.ColumnSpan="2" Name="BtnSave" Click="BtnSave_Click"></Button>
+    </Grid>
+</Page>

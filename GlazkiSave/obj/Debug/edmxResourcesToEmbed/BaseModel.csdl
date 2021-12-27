@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GlazkiSaveModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Agents">
+    <Key>
+      <PropertyRef Name="IdAgent" />
+    </Key>
+    <Property Name="IdAgent" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TypeAgent" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NameAgent" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="LogoAgent" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Priority" Type="Int32" Nullable="false" />
+    <Property Name="Director" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TIN" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TRRC" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="AgentsLog" Relationship="Self.FK_AgentsLog_Agents" FromRole="Agents" ToRole="AgentsLog" />
+    <NavigationProperty Name="ProductSale" Relationship="Self.FK_ProductSale_Agents" FromRole="Agents" ToRole="ProductSale" />
+  </EntityType>
+  <EntityType Name="AgentsLog">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdAgent" Type="Int32" Nullable="false" />
+    <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Priority" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Agents" Relationship="Self.FK_AgentsLog_Agents" FromRole="AgentsLog" ToRole="Agents" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="IdProduct" />
+    </Key>
+    <Property Name="IdProduct" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NameProduct" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TypeProduct" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Article" Type="Int32" Nullable="false" />
+    <Property Name="PersonQuantity" Type="Int32" Nullable="false" />
+    <Property Name="WorkshopNumber" Type="Int32" Nullable="false" />
+    <Property Name="MinPrice" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ProductSale" Relationship="Self.FK_ProductSale_Product" FromRole="Product" ToRole="ProductSale" />
+  </EntityType>
+  <EntityType Name="ProductSale">
+    <Key>
+      <PropertyRef Name="IdProductSale" />
+    </Key>
+    <Property Name="IdProductSale" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdProduct" Type="Int32" Nullable="false" />
+    <Property Name="IdAgent" Type="Int32" Nullable="false" />
+    <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="ProductQuantity" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Agents" Relationship="Self.FK_ProductSale_Agents" FromRole="ProductSale" ToRole="Agents" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_ProductSale_Product" FromRole="ProductSale" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="VW_AgentDetails">
+    <Key>
+      <PropertyRef Name="Тип_агента" />
+      <PropertyRef Name="Наименование_агента" />
+      <PropertyRef Name="Номер_телефона" />
+      <PropertyRef Name="Приоритет" />
+      <PropertyRef Name="Описание" />
+    </Key>
+    <Property Name="Тип_агента" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Наименование_агента" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Номер_телефона" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Приоритет" Type="Int32" Nullable="false" />
+    <Property Name="Скидка_агента" Type="Int32" />
+    <Property Name="Количество_продаж" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="Описание" Type="String" MaxLength="169" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="VW_AgentDetailsDB">
+    <Key>
+      <PropertyRef Name="Тип_агента" />
+      <PropertyRef Name="Наименование_агента" />
+      <PropertyRef Name="Номер_телефона" />
+      <PropertyRef Name="Приоритет" />
+      <PropertyRef Name="Описание" />
+      <PropertyRef Name="IdAgent" />
+    </Key>
+    <Property Name="Тип_агента" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Наименование_агента" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Номер_телефона" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Приоритет" Type="Int32" Nullable="false" />
+    <Property Name="Скидка_агента" Type="Int32" />
+    <Property Name="Количество_продаж" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="Описание" Type="String" MaxLength="169" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IdAgent" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LogoAgent" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <Association Name="FK_AgentsLog_Agents">
+    <End Role="Agents" Type="Self.Agents" Multiplicity="1" />
+    <End Role="AgentsLog" Type="Self.AgentsLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Agents">
+        <PropertyRef Name="IdAgent" />
+      </Principal>
+      <Dependent Role="AgentsLog">
+        <PropertyRef Name="IdAgent" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductSale_Agents">
+    <End Role="Agents" Type="Self.Agents" Multiplicity="1" />
+    <End Role="ProductSale" Type="Self.ProductSale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Agents">
+        <PropertyRef Name="IdAgent" />
+      </Principal>
+      <Dependent Role="ProductSale">
+        <PropertyRef Name="IdAgent" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductSale_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="ProductSale" Type="Self.ProductSale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="IdProduct" />
+      </Principal>
+      <Dependent Role="ProductSale">
+        <PropertyRef Name="IdProduct" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="GlazkiSaveEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Agents" EntityType="Self.Agents" />
+    <EntitySet Name="AgentsLog" EntityType="Self.AgentsLog" />
+    <EntitySet Name="Product" EntityType="Self.Product" />
+    <EntitySet Name="ProductSale" EntityType="Self.ProductSale" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="VW_AgentDetails" EntityType="Self.VW_AgentDetails" />
+    <EntitySet Name="VW_AgentDetailsDB" EntityType="Self.VW_AgentDetailsDB" />
+    <AssociationSet Name="FK_AgentsLog_Agents" Association="Self.FK_AgentsLog_Agents">
+      <End Role="Agents" EntitySet="Agents" />
+      <End Role="AgentsLog" EntitySet="AgentsLog" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductSale_Agents" Association="Self.FK_ProductSale_Agents">
+      <End Role="Agents" EntitySet="Agents" />
+      <End Role="ProductSale" EntitySet="ProductSale" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductSale_Product" Association="Self.FK_ProductSale_Product">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="ProductSale" EntitySet="ProductSale" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

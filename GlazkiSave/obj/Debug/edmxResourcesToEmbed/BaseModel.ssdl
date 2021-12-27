@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище GlazkiSaveModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Agents">
+    <Key>
+      <PropertyRef Name="IdAgent" />
+    </Key>
+    <Property Name="IdAgent" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TypeAgent" Type="varchar" MaxLength="5" Nullable="false" />
+    <Property Name="NameAgent" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Phone" Type="varchar" MaxLength="12" Nullable="false" />
+    <Property Name="LogoAgent" Type="varchar" MaxLength="50" />
+    <Property Name="Address" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Priority" Type="int" Nullable="false" />
+    <Property Name="Director" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="TIN" Type="varchar" MaxLength="12" Nullable="false" />
+    <Property Name="TRRC" Type="varchar" MaxLength="12" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AgentsLog">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdAgent" Type="int" Nullable="false" />
+    <Property Name="DateTime" Type="date" Nullable="false" />
+    <Property Name="Priority" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="IdProduct" />
+    </Key>
+    <Property Name="IdProduct" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NameProduct" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="TypeProduct" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Article" Type="int" Nullable="false" />
+    <Property Name="PersonQuantity" Type="int" Nullable="false" />
+    <Property Name="WorkshopNumber" Type="int" Nullable="false" />
+    <Property Name="MinPrice" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProductSale">
+    <Key>
+      <PropertyRef Name="IdProductSale" />
+    </Key>
+    <Property Name="IdProductSale" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdProduct" Type="int" Nullable="false" />
+    <Property Name="IdAgent" Type="int" Nullable="false" />
+    <Property Name="DateTime" Type="date" Nullable="false" />
+    <Property Name="ProductQuantity" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "GlazkiSave.dbo.VW_AgentDetails" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+  <EntityType Name="VW_AgentDetails">
+    <Key>
+      <PropertyRef Name="Тип агента" />
+      <PropertyRef Name="Наименование агента" />
+      <PropertyRef Name="Номер телефона" />
+      <PropertyRef Name="Приоритет" />
+      <PropertyRef Name="Описание" />
+    </Key>
+    <Property Name="Тип агента" Type="varchar" MaxLength="5" Nullable="false" />
+    <Property Name="Наименование агента" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="Номер телефона" Type="varchar" MaxLength="12" Nullable="false" />
+    <Property Name="Приоритет" Type="int" Nullable="false" />
+    <Property Name="Скидка агента" Type="int" />
+    <Property Name="Количество продаж" Type="varchar" MaxLength="15" />
+    <Property Name="Описание" Type="varchar" MaxLength="169" Nullable="false" />
+  </EntityType>
+  <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "GlazkiSave.dbo.VW_AgentDetailsDB" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+  <EntityType Name="VW_AgentDetailsDB">
+    <Key>
+      <PropertyRef Name="Тип агента" />
+      <PropertyRef Name="Наименование агента" />
+      <PropertyRef Name="Номер телефона" />
+      <PropertyRef Name="Приоритет" />
+      <PropertyRef Name="Описание" />
+      <PropertyRef Name="IdAgent" />
+    </Key>
+    <Property Name="Тип агента" Type="varchar" MaxLength="5" Nullable="false" />
+    <Property Name="Наименование агента" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="Номер телефона" Type="varchar" MaxLength="12" Nullable="false" />
+    <Property Name="Приоритет" Type="int" Nullable="false" />
+    <Property Name="Скидка агента" Type="int" />
+    <Property Name="Количество продаж" Type="varchar" MaxLength="15" />
+    <Property Name="Описание" Type="varchar" MaxLength="169" Nullable="false" />
+    <Property Name="IdAgent" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LogoAgent" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_AgentsLog_Agents">
+    <End Role="Agents" Type="Self.Agents" Multiplicity="1" />
+    <End Role="AgentsLog" Type="Self.AgentsLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Agents">
+        <PropertyRef Name="IdAgent" />
+      </Principal>
+      <Dependent Role="AgentsLog">
+        <PropertyRef Name="IdAgent" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductSale_Agents">
+    <End Role="Agents" Type="Self.Agents" Multiplicity="1" />
+    <End Role="ProductSale" Type="Self.ProductSale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Agents">
+        <PropertyRef Name="IdAgent" />
+      </Principal>
+      <Dependent Role="ProductSale">
+        <PropertyRef Name="IdAgent" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductSale_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="ProductSale" Type="Self.ProductSale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="IdProduct" />
+      </Principal>
+      <Dependent Role="ProductSale">
+        <PropertyRef Name="IdProduct" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище GlazkiSaveModelContainer">
+    <EntitySet Name="Agents" EntityType="Self.Agents" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AgentsLog" EntityType="Self.AgentsLog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductSale" EntityType="Self.ProductSale" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VW_AgentDetails" EntityType="Self.VW_AgentDetails" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [VW_AgentDetails].[Тип агента] AS [Тип агента], 
+    [VW_AgentDetails].[Наименование агента] AS [Наименование агента], 
+    [VW_AgentDetails].[Номер телефона] AS [Номер телефона], 
+    [VW_AgentDetails].[Приоритет] AS [Приоритет], 
+    [VW_AgentDetails].[Скидка агента] AS [Скидка агента], 
+    [VW_AgentDetails].[Количество продаж] AS [Количество продаж], 
+    [VW_AgentDetails].[Описание] AS [Описание]
+    FROM [dbo].[VW_AgentDetails] AS [VW_AgentDetails]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="VW_AgentDetailsDB" EntityType="Self.VW_AgentDetailsDB" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [VW_AgentDetailsDB].[Тип агента] AS [Тип агента], 
+    [VW_AgentDetailsDB].[Наименование агента] AS [Наименование агента], 
+    [VW_AgentDetailsDB].[Номер телефона] AS [Номер телефона], 
+    [VW_AgentDetailsDB].[Приоритет] AS [Приоритет], 
+    [VW_AgentDetailsDB].[Скидка агента] AS [Скидка агента], 
+    [VW_AgentDetailsDB].[Количество продаж] AS [Количество продаж], 
+    [VW_AgentDetailsDB].[Описание] AS [Описание], 
+    [VW_AgentDetailsDB].[IdAgent] AS [IdAgent], 
+    [VW_AgentDetailsDB].[LogoAgent] AS [LogoAgent]
+    FROM [dbo].[VW_AgentDetailsDB] AS [VW_AgentDetailsDB]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_AgentsLog_Agents" Association="Self.FK_AgentsLog_Agents">
+      <End Role="Agents" EntitySet="Agents" />
+      <End Role="AgentsLog" EntitySet="AgentsLog" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductSale_Agents" Association="Self.FK_ProductSale_Agents">
+      <End Role="Agents" EntitySet="Agents" />
+      <End Role="ProductSale" EntitySet="ProductSale" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductSale_Product" Association="Self.FK_ProductSale_Product">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="ProductSale" EntitySet="ProductSale" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

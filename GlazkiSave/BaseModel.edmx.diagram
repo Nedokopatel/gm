@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="aa641c8a1af84ca784ed044456615b75" Name="Diagram1">
+        <EntityTypeShape EntityType="GlazkiSaveModel.Agents" Width="1.5" PointX="0.75" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlazkiSaveModel.AgentsLog" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlazkiSaveModel.Product" Width="1.5" PointX="0.75" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlazkiSaveModel.ProductSale" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlazkiSaveModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlazkiSaveModel.VW_AgentDetails" Width="1.5" PointX="2.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlazkiSaveModel.VW_AgentDetailsDB" Width="1.5" PointX="5.75" PointY="5" IsExpanded="true" />
+        <AssociationConnector Association="GlazkiSaveModel.FK_AgentsLog_Agents" ManuallyRouted="false" />
+        <AssociationConnector Association="GlazkiSaveModel.FK_ProductSale_Agents" ManuallyRouted="false" />
+        <AssociationConnector Association="GlazkiSaveModel.FK_ProductSale_Product" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
