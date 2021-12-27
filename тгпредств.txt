@@ -1,0 +1,47 @@
+USE [GlazkiSave]
+GO
+/****** Object:  Trigger [dbo].[TR_Agents_AfterInsertUpdate]    Script Date: 26.12.2021 7:24:36 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER TRIGGER [dbo].[TR_Agents_AfterInsertUpdate]
+ON [dbo].[Agents]
+AFTER INSERT, UPDATE
+AS
+INSERT INTO AgentsLog
+VALUES ((SELECT IdAgent From INSERTED), SYSDATETIME(), (SELECT Priority From INSERTED))
+
+SELECT        TOP (100) PERCENT TypeAgent AS [Тип агента], NameAgent AS [Наименование агента], Phone AS [Номер телефона], Priority AS Приоритет,
+                             (SELECT        SUM(MinPrice) AS Expr1
+                               FROM            dbo.Product AS p
+                               WHERE        (IdProduct IN
+                                                             (SELECT        IdProduct
+                                                               FROM            dbo.ProductSale AS ps
+                                                               WHERE        (IdAgent = a.IdAgent)))) / 200 AS [Скидка агента], CAST
+                             ((SELECT        SUM(MinPrice) AS Expr1
+                                 FROM            dbo.Product AS p
+                                 WHERE        (IdProduct IN
+                                                              (SELECT        IdProduct
+                                                                FROM            dbo.ProductSale AS ps
+                                                                WHERE        (IdAgent = a.IdAgent) AND (DateTime BETWEEN DATEADD(year, - 10, SYSDATETIME()) AND SYSDATETIME())))) AS varchar(10)) + ' руб.' AS [Количество продаж], 
+                         'Директор: ' + Director + '. Адрес: ' + Address AS Описание, IdAgent, LogoAgent
+FROM            dbo.Agents AS a
+ORDER BY Приоритет DESC
+
+SELECT        TOP (100) PERCENT TypeAgent AS [Тип агента], NameAgent AS [Наименование агента], Phone AS [Номер телефона], Priority AS Приоритет,
+                             (SELECT        SUM(MinPrice) AS Expr1
+                               FROM            dbo.Product AS p
+                               WHERE        (IdProduct IN
+                                                             (SELECT        IdProduct
+                                                               FROM            dbo.ProductSale AS ps
+                                                               WHERE        (IdAgent = a.IdAgent)))) / 200 AS [Скидка агента], CAST
+                             ((SELECT        SUM(MinPrice) AS Expr1
+                                 FROM            dbo.Product AS p
+                                 WHERE        (IdProduct IN
+                                                              (SELECT        IdProduct
+                                                                FROM            dbo.ProductSale AS ps
+                                                                WHERE        (IdAgent = a.IdAgent) AND (DateTime BETWEEN DATEADD(year, - 10, SYSDATETIME()) AND SYSDATETIME())))) AS varchar(10)) + ' руб.' AS [Количество продаж], 
+                         'Директор: ' + Director + '. Адрес: ' + Address AS Описание, IdAgent, LogoAgent
+FROM            dbo.Agents AS a
+ORDER BY Приоритет DESC
